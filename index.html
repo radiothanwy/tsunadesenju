@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar, en" dir="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsunade Senju - Fifth Hokage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2; /* Purple (Tsunade's theme) */
+            --secondary: #ffd700; /* Gold */
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --accent: #e91e63; /* Pink for highlights */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .lang-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://i.pinimg.com/564x/87/3a/64/873a64d0e5b7c0d0e3e0b8e7d1c5c5f5.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px var(--dark);
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* TikTok Embed Container */
+        .tiktok-embed-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 19vw;
+            height: 72vh;
+            z-index: 900;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .tiktok-embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 10%;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+
+        /* Biography */
+        .bio-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline-item {
+            margin-bottom: 40px;
+            padding-left: 30px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        /* Abilities */
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .ability-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .ability-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .tiktok-embed-container {
+                width: 150px;
+                height: 300px;
+                bottom: 10px;
+                right: 10px;
+            }
+            .abilities-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Arabic Styling */
+        [lang="ar"] {
+            direction: rtl;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        [lang="ar"] .section-title,
+        [lang="ar"] .hero-content h1 {
+            font-family: 'Traditional Arabic', serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn" id="langSwitch">EN/AR</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 lang="en">Tsunade Senju</h1>
+            <h1 lang="ar" style="display:none;">تسونادي سينجو</h1>
+            <p lang="en">The Fifth Hokage · Legendary Medical Ninja · Konoha's Slug Princess</p>
+            <p lang="ar" style="display:none;">الهوكاغو الخامسة · طبيبة النينجا الأسطورية · أميرة الرخويات</p>
+        </div>
+    </section>
+
+    <!-- TikTok Embed -->
+    <div class="tiktok-embed-container">
+        <iframe src="https://www.tiktok.com/player/v1/7534783393121193224?autoplay=0" allow="fullscreen"></iframe>
+    </div>
+
+    <!-- Biography -->
+    <section id="bio">
+        <h2 class="section-title" lang="en">Biography</h2>
+        <h2 class="section-title" lang="ar" style="display:none;">السيرة الذاتية</h2>
+        <div class="bio-timeline">
+            <div class="timeline-item">
+                <h3 lang="en">Early Life & Legacy</h3>
+                <h3 lang="ar" style="display:none;">الحياة المبكرة والإرث</h3>
+                <p lang="en">Granddaughter of First Hokage Hashirama Senju. Inherited his necklace and gambling habits :cite[2]:cite[6].</p>
+                <p lang="ar" style="display:none;">حفيدة الهوكاغو الأول هاشيراما سينجو. ورثت قلادته وعادة القمار :cite[2]:cite[6].</p>
+            </div>
+            <div class="timeline-item">
+                <h3 lang="en">The Legendary Sannin</h3>
+                <h3 lang="ar" style="display:none;">السانين الأسطوريون</h3>
+                <p lang="en">Survived battle against Hanzo during Second Shinobi World War with Orochimaru and Jiraiya :cite[2]:cite[6].</p>
+                <p lang="ar" style="display:none;">نجت من معركة ضد هانزو خلال الحرب العالمية الثانية للشينوبي مع أوروشيمارو وجيرايا :cite[2]:cite[6].</p>
+            </div>
+            <div class="timeline-item">
+                <h3 lang="en">Fifth Hokage</h3>
+                <h3 lang="ar" style="display:none;">الهوكاغو الخامسة</h3>
+                <p lang="en">Became Hokage after overcoming hemophobia inspired by Naruto Uzumaki :cite[2]:cite[6].</p>
+                <p lang="ar" style="display:none;">أصبحت هوكاغو بعد التغلب على رهاب الدم مستوحاة من ناروتو أوزوماكي :cite[2]:cite[6].</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abilities -->
+    <section id="abilities">
+        <h2 class="section-title" lang="en">Abilities</h2>
+        <h2 class="section-title" lang="ar" style="display:none;">القدرات</h2>
+        <div class="abilities-grid">
+            <div class="ability-card">
+                <h3 lang="en">Medical Ninjutsu</h3>
+                <h3 lang="ar" style="display:none;">تقنيات النينجا الطبية</h3>
+                <p lang="en">World's greatest medical-nin. Creator of the "Strength of a Hundred Seal" technique :cite[6].</p>
+                <p lang="ar" style="display:none;">أعظم طبيبة نينجا في العالم. مبتكرة تقنية "قوة الختم المائة" :cite[6].</p>
+            </div>
+            <div class="ability-card">
+                <h3 lang="en">Monstrous Strength</h3>
+                <h3 lang="ar" style="display:none;">القوة الهائلة</h3>
+                <p lang="en">Can shatter mountains with single punches. Known as "The World's Strongest Kunoichi" :cite[6].</p>
+                <p lang="ar" style="display:none;">قادرة على تحطيم الجبال بلكماتها. تُعرف باسم "أقوى كونويتشي في العالم" :cite[6].</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <h2 class="section-title" lang="en">Gallery</h2>
+        <h2 class="section-title" lang="ar" style="display:none;">معرض الصور</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="Gemini_Generated_Image_fdivyrfdivyrfdiv.jfif" alt="Tsunade Hokage Art" loading="lazy">
+                <p lang="en">Official Art <a href="https://www.pinterest.com/pin/951655658751/" target="_blank">[Source]</a></p>
+            </div>
+            <div class="gallery-item">
+                <img src="Gemini_Generated_Image_p9i28bp9i28bp9i2.jfif" alt="Tsunade Battle Pose" loading="lazy">
+                <p lang="en">Tsuna by @Ahoanime <a href="https://www.tumblr.com/mayskalih/710967788394659841" target="_blank">[Source]</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p lang="en">Tsunade Senju .Biz | Tsunade © Ahoanime</p>
+        <p lang="ar" style="display:none;">تسونادي سينجو دوت بز | تسونادي@ أهو انمي</p>
+    </footer>
+
+    <script>
+        // Language Toggle
+        document.getElementById('langSwitch').addEventListener('click', function() {
+            const enElements = document.querySelectorAll('[lang="en"]');
+            const arElements = document.querySelectorAll('[lang="ar"]');
+            
+            enElements.forEach(el => {
+                el.style.display = el.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            arElements.forEach(el => {
+                el.style.display = el.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            document.body.dir = document.body.dir === 'rtl' ? 'ltr' : 'rtl';
+        });
+
+        // Lazy Load Images
+        const images = document.querySelectorAll('img');
+        const config = {
+            rootMargin: '0px 0px 50px 0px',
+            threshold: 0.01
+        };
+        
+        const observer = new IntersectionObserver((entries, self) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    self.unobserve(img);
+                }
+            });
+        }, config);
+        
+        images.forEach(img => {
+            img.dataset.src = img.src;
+            img.src = '';
+            observer.observe(img);
+        });
+    </script>
+</body>
+</html>
