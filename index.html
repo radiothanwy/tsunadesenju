@@ -643,7 +643,7 @@
             const enElements = document.querySelectorAll('.lang-en');
             const arElements = document.querySelectorAll('.lang-ar');
             const btns = document.querySelectorAll('.lang-btn');
-
+    
             if (lang === 'en') {
                 // Show English, Hide Arabic
                 enElements.forEach(el => el.classList.remove('hidden'));
@@ -670,7 +670,24 @@
                 btns[0].classList.remove('active');
             }
         }
-
+    
+        // --- FIX: Smooth scrolling without updating the URL ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // This stops the '#' from appearing in the URL
+    
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+    
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    
         // Hover Video Logic
         const videoCards = document.querySelectorAll('.gallery-item');
         videoCards.forEach(card => {
@@ -685,7 +702,7 @@
                 }
             });
         });
-
+    
         // Animation on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -695,7 +712,7 @@
                 }
             });
         }, { threshold: 0.1 });
-
+    
         document.querySelectorAll('.ability-card, .gallery-item, .timeline-content').forEach(el => {
             el.style.opacity = 0;
             el.style.transform = 'translateY(20px)';
