@@ -32,14 +32,10 @@
             line-height: 1.6;
         }
 
-        /* --- UTILITY CLASSES FOR LANGUAGE TOGGLING --- */
-        .hidden {
-            display: none !important;
-        }
-        /* Force text alignment for Arabic */
-        .arabic-text {
-            font-family: 'Tahoma', 'Segoe UI', sans-serif;
-        }
+        /* --- UTILITY CLASSES --- */
+        .hidden { display: none !important; }
+        .arabic-text { font-family: 'Tahoma', 'Segoe UI', sans-serif; }
+        .highlight-text { color: white; font-weight: 700; } /* For Philosophy Cards */
 
         /* --- LAYOUT COMPONENTS --- */
 
@@ -91,7 +87,7 @@
             height: 100%;
             background: 
                 linear-gradient(to bottom, rgba(15,15,18,0.3), var(--bg-dark)),
-                url('images/2.jfif') center/cover no-repeat;
+                url('images/hero.png') center/cover no-repeat;
             z-index: -1;
             filter: brightness(0.7);
         }
@@ -151,6 +147,41 @@
             color: var(--secondary);
         }
 
+        /* --- NEW SECTION: PHILOSOPHY GRID --- */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px; /* Spacing before Stats */
+        }
+        .phil-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .phil-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        .phil-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .phil-card p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        /* Arabic Philosophy Align */
+        body.rtl-active .phil-card { text-align: right; }
+
+
         /* Stats Bar */
         .stats-bar {
             display: flex;
@@ -196,12 +227,11 @@
             font-size: 0.9rem;
         }
 
-        /* --- TIMELINE (The Critical Fix) --- */
+        /* Timeline Styles */
         .bio-timeline {
             position: relative;
             max-width: 900px;
             margin: 0 auto;
-            /* Force LTR direction for the LINE structure even in Arabic */
             direction: ltr !important; 
         }
         .bio-timeline::before {
@@ -217,7 +247,6 @@
             width: 50%;
             position: relative;
             padding: 0 40px;
-            /* Maintain English Structure layout */
             text-align: inherit; 
         }
         .timeline-item:nth-child(odd) { left: 0; text-align: right; }
@@ -243,15 +272,9 @@
         }
         .timeline-content h3 { color: var(--secondary); margin-bottom: 10px; }
 
-        /* ARABIC OVERRIDES FOR TIMELINE TEXT ONLY */
-        body.rtl-active .timeline-content {
-            direction: rtl; 
-            text-align: right;
-        }
-        /* Fix the odd items (left side) alignment in Arabic */
-        body.rtl-active .timeline-item:nth-child(odd) .timeline-content {
-            text-align: right;
-        }
+        /* ARABIC OVERRIDES */
+        body.rtl-active .timeline-content { direction: rtl; text-align: right; }
+        body.rtl-active .timeline-item:nth-child(odd) .timeline-content { text-align: right; }
 
         /* Services Grid */
         .abilities-grid {
@@ -281,27 +304,17 @@
             border-radius: 50%;
         }
         
-        /* Arabic Text Align for Cards */
-        body.rtl-active .ability-card {
-            text-align: right;
-        }
-        body.rtl-active .ability-icon {
-            margin-left: auto; margin-right: 0; /* Align icon right */
-        }
+        body.rtl-active .ability-card { text-align: right; }
+        body.rtl-active .ability-icon { margin-left: auto; margin-right: 0; }
 
         /* Portfolio */
-        /* --- UPDATED PORTFOLIO STYLES --- */
-
         .gallery-grid {
             display: grid;
-            /* Adjusted for TikTok Vertical Ratio */
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 25px;
         }
-
         .gallery-item {
             position: relative;
-            /* TikTok Aspect Ratio approx 9:16 */
             aspect-ratio: 9 / 16; 
             border-radius: 15px;
             overflow: hidden;
@@ -309,71 +322,125 @@
             border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
-
-        /* 1. The TikTok Iframe */
         .gallery-item iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            z-index: 1; /* Sits behind the cover */
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; z-index: 1;
         }
-
-        /* 2. The Cover Overlay (The "Mask") */
         .gallery-overlay-cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2; /* Sits on top */
-            cursor: pointer;
-            transition: opacity 0.4s ease-in-out;
-            background: #000;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; cursor: pointer;
+            transition: opacity 0.4s ease-in-out; background: #000;
+        }
+        .gallery-overlay-cover img {
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.8;
+        }
+        .gallery-info {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        }
+        .play-icon { font-size: 2rem; color: var(--primary); margin-top: 10px; opacity: 0.8; }
+        .gallery-item:hover .gallery-overlay-cover { opacity: 0; pointer-events: none; }
+        .gallery-item:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(138, 43, 226, 0.3); }
+        body.rtl-active .gallery-overlay { text-align: right; }
+
+        /* --- PORTFOLIO: CINEMATIC MIST EFFECT --- */
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px;
         }
 
-        /* Image styling inside the cover */
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 9 / 16; 
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            /* Necessary for the mist effect boundary */
+            z-index: 1;
+        }
+
+        /* The TikTok Iframe (Hidden at back) */
+        .gallery-item iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; z-index: 0;
+        }
+
+        /* --- THE COVER CONTAINER (The Stage) --- */
+        .gallery-overlay-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; cursor: pointer;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s;
+            overflow: hidden; /* Keep the animation inside */
+        }
+
+        /* MIST EFFECT BACKGROUND */
+        .gallery-overlay-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.2) 0%, rgba(0,0,0,0.9) 70%);
+            opacity: 0.6;
+            animation: mist-pulse 15s infinite alternate linear;
+            z-index: 1;
+        }
+
+        /* --- THE COVER IMAGE (The Hero) --- */
         .gallery-overlay-cover img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            opacity: 0.8;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2; /* Sits above the mist */
+            filter: contrast(1.1) brightness(0.9); /* Cinematic look */
+            /* Slow, elegant zoom & rotate animation */
+            animation: slow-zoom 20s infinite alternate ease-in-out;
+        }
+
+        /* Vignette overlay on top of image */
+        .gallery-overlay-cover::after {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 3;
         }
 
         /* The Text/Info styling */
         .gallery-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            position: absolute; bottom: 0; left: 0; width: 100%;
             padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,1), transparent);
+            z-index: 4; /* Highest priority */
         }
+        .play-icon { font-size: 2rem; color: var(--primary); margin-top: 10px; opacity: 0.9; filter: drop-shadow(0 0 10px var(--primary)); }
 
-        .play-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        /* --- THE INTERACTION (HOVER) --- */
-        /* When hovering the item, hide the cover to reveal the iframe */
+        /* --- INTERACTIONS --- */
+        /* When hovering, fade out the entire cover container */
         .gallery-item:hover .gallery-overlay-cover {
             opacity: 0; 
-            pointer-events: none; /* Let clicks pass through to the iframe */
+            visibility: hidden;
+            pointer-events: none; 
         }
-
-        /* Add a Glow effect to the border */
+        /* Add a Glow effect to the border on hover */
         .gallery-item:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.4);
         }
-        
-        /* Arabic Portfolio Align */
-        body.rtl-active .gallery-overlay { text-align: right; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes slow-zoom {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.15) rotate(1deg); }
+        }
+
+        @keyframes mist-pulse {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(-2%, -2%) scale(1.05); opacity: 0.7; }
+            100% { transform: translate(2%, 2%) scale(1); opacity: 0.5; }
+        }
 
         /* Footer */
         footer {
@@ -399,10 +466,10 @@
         /* Responsive */
         @media (max-width: 992px) {
             .hero-content h1 { font-size: 3.5rem; }
+            .philosophy-grid { grid-template-columns: 1fr; } /* Stack philosophy cards on mobile */
             .stats-bar { gap: 30px; }
             .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; }
             .bio-timeline::before { left: 20px; }
-            /* Force left align on mobile for both languages for simplicity */
             .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; text-align: left; }
             .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 11px; right: auto; }
             
@@ -437,11 +504,35 @@
             <p class="lang-ar hidden"> . إعادة تعريف ثقافة الأوتاكو في الشرق الأوسط. محتوى عالي القيمة. عمق فلسفي. وصول لا يضاهى</p>
             
             <div style="margin-top: 30px;">
-                <a href="#stats" class="btn lang-en">View Our Impact</a>
-                <a href="#stats" class="btn lang-ar hidden">شاهد تأثيرنا</a>
+                <a href="#vision" class="btn lang-en">Our Vision</a>
+                <a href="#vision" class="btn lang-ar hidden">رؤيتنا</a>
                 
                 <a href="#portfolio" class="btn btn-secondary lang-en">The Work</a>
                 <a href="#portfolio" class="btn btn-secondary lang-ar hidden">لمحة من اعمالنا</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision">
+        <div class="section-header">
+            <span class="section-subtitle lang-en">The Concept</span>
+            <span class="section-subtitle lang-ar hidden">المفهوم</span>
+            <h2 class="section-title lang-en">The Stars'Up Formula</h2>
+            <h2 class="section-title lang-ar hidden">معادلة ستارز آب</h2>
+        </div>
+
+        <div class="philosophy-grid">
+            <div class="phil-card">
+                <h3 class="lang-en">The Infinite Layer</h3>
+                <h3 class="lang-ar hidden">البعد اللانهائي</h3>
+                <p class="lang-en">We don't just react; we <span class="highlight-text">re-architect</span>. Stars'Up creates a new dimension of content by layering existing pop culture— Anime, movies, TV, and literature—with a unique satirical and philosophical flavor. Every character and event is viewed through a new lens, offering <span class="highlight-text">endless possibilities</span> beyond the original creator's intent.</p>
+                <p class="lang-ar hidden">نحن لا نرد الفعل فحسب، بل <span class="highlight-text">نعيد البناء</span>. يصنع ستارز آب بعدًا جديدًا للمحتوى من خلال إضافة طبقات على الثقافة الشعبية—الأتمي، الافلام، التلفزيون، والأدب ككل —بنكهة ساخرة وفلسفية فريدة. نرى كل شخصية وحدث من خلال عدسة جديدة، مما يفتح <span class="highlight-text">احتمالات لا محدودة</span> تتجاوز القصد الأصلي للمبدع.</p>
+            </div>
+            <div class="phil-card">
+                <h3 class="lang-en">The Verbal Aura</h3>
+                <h3 class="lang-ar hidden">الهالة اللفظية</h3>
+                <p class="lang-en">Words are our <span class="highlight-text">Real-World Aura</span>. Moving beyond standard hype, our formula treats phrases as "Creative Sound Effects." We craft descriptions that don't just narrate and discribe the scene, but <span class="highlight-text">vibrate</span> within it—capturing attention through a poetic resonance that adds a physical weight to every produced moment.</p>
+                <p class="lang-ar hidden">الكلمات هي <span class="highlight-text">هالتنا الواقعية</span>. نتخطى الحماس المعتاد، المعادلة هي العبارات كـ "مؤثرات صوتية إبداعية". نصيغ أوصافًا لا تسرد المشهد فحسب، بل <span class="highlight-text">تتردد صداها</span> داخله—جاذبةً الانتباه من خلال رنين شعري يضيف ثقلًا ماديًا لكل لحظة منتجة.</p>
             </div>
         </div>
     </section>
@@ -547,7 +638,7 @@
         </div>
     </section>
 
-<section id="portfolio">
+    <section id="portfolio">
         <div class="section-header">
             <h2 class="section-title lang-en">Selected Works</h2>
             <h2 class="section-title lang-ar hidden">مختارات من أعمالنا</h2>
@@ -625,6 +716,7 @@
 
         </div>
     </section>
+
     <footer>
         <div class="social-links">
             <a href="https://www.youtube.com/@aho_anime"><i class="fab fa-youtube"></i></a>
@@ -671,10 +763,10 @@
             }
         }
     
-        // --- FIX: Smooth scrolling without updating the URL ---
+        // Smooth scrolling without updating the URL
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault(); // This stops the '#' from appearing in the URL
+                e.preventDefault(); 
     
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
@@ -713,7 +805,7 @@
             });
         }, { threshold: 0.1 });
     
-        document.querySelectorAll('.ability-card, .gallery-item, .timeline-content').forEach(el => {
+        document.querySelectorAll('.ability-card, .gallery-item, .timeline-content, .phil-card').forEach(el => {
             el.style.opacity = 0;
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease-out';
